@@ -35,8 +35,7 @@ try:
 # Leitura de parâmetros do arquivo
             row_before = ws.max_row + 1
             column = ws.max_column - 1
-            print(row_before)
-            print(column)
+
 # Inserir dados na planilha
             for r in dr:
                 ws.append(r)
@@ -76,8 +75,7 @@ try:
 #                                                 horizontal=Side(border_style=None,
 #                                                 color='FF000000'))
 
-                    ws.cell(i, j).alignment = Alignment(
-                        horizontal='center', vertical='center')
+                    ws.cell(i, j).alignment = Alignment(horizontal='center', vertical='center')
                     ws.cell(i, j).number_format = '0.00'
 
 # Apresentacao dos dataframes no terminal

@@ -4,11 +4,11 @@ import tkinter
 from tkinter import *
 import conexao
 
-from Dados_Planilha_1231 import Estacao1
-from Dados_Planilha_1232 import Estacao2
+from models.Estacao1221 import Estacao1221
+from models.Estacao1222 import Estacao2
 
 try:
-    class Dados():     
+    class Principal():     
 
 # Seleção da estação de consulta
         def executa(self):
@@ -18,8 +18,8 @@ try:
             Nome_Salvar = self.entry5.get()
             resultado = str("Arquivo excel criado com sucesso!!!")
             
-            if self.rb_value.get() == 1:  # Estação 1231
-                objeto = Estacao1()   
+            if self.rb_value.get() == 1:  # Estação 1221
+                objeto = Estacao1221()   
                 instancia = objeto._init_(data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
@@ -33,7 +33,7 @@ try:
             self.entry3.delete(0,END)
             self.entry4.delete(0,END)
             self.entry5.delete(0,END)
-            self.rb_value.set(None)
+            self.rb_value.set(0)
             self.v.set("")
             self.entry2.focus()
             Window.update()
@@ -88,7 +88,7 @@ try:
 
 
             self.rb_value = IntVar()
-            self.rb1 = Radiobutton(frame6, text="Estação 1231", value=1, variable=self.rb_value).pack(anchor=W)
+            self.rb1 = Radiobutton(frame6, text="Estação 1221", value=1, variable=self.rb_value).pack(anchor=W)
             self.rb2 = Radiobutton(frame6, text="Estação 1232", value=2, variable=self.rb_value).pack(anchor=W)
 
             label6 = Label(frame7, text="Resultado: ")
@@ -108,7 +108,7 @@ try:
     Window = tkinter.Tk()
     Window.title("Dados Planilha")
     Window.geometry("360x400")
-    Dados(Window)
+    Principal(Window)
     Window.mainloop()
 
 # Encerrar conexao com o banco de dados

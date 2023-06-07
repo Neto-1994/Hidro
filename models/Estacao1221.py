@@ -9,32 +9,35 @@ from openpyxl.utils import get_column_letter
 
 # Busca de dados no banco
 try:
-    class Estacao1():
+    class Estacao1221():
         def _init_(self, data1, data2, Nome_Arquivo, Nome_Salvar):
             data2 = data2 + " 21:00:00"
-            consulta_sql = "select date(Horalocal), sum(Pluvio1h), sum(Evaporacao1h) from medicoes where codigo_sec = 1231 and horalocal between %s and %s group by date(Horalocal);"
+            consulta_sql = "SELECT DATE(horalocal), AVG(SPressao), AVG(Vazao_calculada) FROM medicoes WHERE Codigo_Sec = 1221 AND horalocal between %s and %s GROUP BY DATE(HoraLocal);"
             cursor = conexao.con.cursor()
             cursor.execute(consulta_sql, (data1, data2))
             Dados = cursor.fetchall()
 
 # Gerar dataframe com os dados
             df = pandas.DataFrame(
-                Dados, columns=["DATA", "PRECIP. (mm)", "EVAPORACAO (mm)"])
-
-# Condicao acumulativa da precipitacao mensal e insercao do valor no dataframe
-            Acumulativo = df["PRECIP. (mm)"].cumsum()
-            df.insert(2, "PREC. ACUM. (mm)", Acumulativo)
+                Dados, columns=["DATA", "PRESSAO (24h)", "VAZAO (24h)"])
 
 # Formatacao da data
             df["DATA"] = pandas.to_datetime(df.DATA)
-            df["DATA"] = df["DATA"].dt.strftime("%m/%d/%y")
+            df["DATA"] = df["DATA"].dt.strftime("%d/%m/%Y")# Ano com Y maiúsculo, saída com 4 dígitos / Ano com y minúsculo, saída com 2 dígitos
 
 # Carregar arquivo excel existente
-            wb = load_workbook("C:/"+Nome_Arquivo+".xlsx")
-            ws = wb["Evapo 1"]
+            wb = load_workbook("C:/Users/tired/Desktop/" + Nome_Arquivo + ".xlsx")
+            ws = wb["Hidro 1221"]
 
-# Inserir dados na planilha
+# Transformar dataframe em datarows (linhas de dados)
             dr = dataframe_to_rows(df, index=False, header=False,)
+
+# Leitura de parâmetros do arquivo
+            row_before = ws.max_row + 1
+            column = ws.max_column - 1
+            print(row_before)
+            print(column)
+# Inserir dados na planilha
             for r in dr:
                 ws.append(r)
 
@@ -45,12 +48,13 @@ try:
 #            ws.add_image(img1, "A1")
 #            ws.add_image(img2, "D1")
 
+# Leitura de parâmetros do arquivo
+            row_after = ws.max_row + 1
+
 # Formatar dados da planilha
-            row = ws.max_row
-            column = ws.max_column
-            for i in range(343, row + 1):
+            for i in range(row_before, row_after):
                 for j in range(1, column):
-                    ws.cell(i, j).font = Font(name="Times New Roman",
+                    ws.cell(i, j).font = Font(name="Calibri",
                                               size=12)
 #                                             bold = False,
 #                                             italic = False,
@@ -72,16 +76,17 @@ try:
 #                                                 horizontal=Side(border_style=None,
 #                                                 color='FF000000'))
 
-                    ws.cell(i, j).alignment = Alignment(horizontal='center', vertical='center')
-                    ws.cell(i, j).number_format = '0.0'
+                    ws.cell(i, j).alignment = Alignment(
+                        horizontal='center', vertical='center')
+                    ws.cell(i, j).number_format = '0.00'
 
 # Apresentacao dos dataframes no terminal
 #               displayhook(df)
 
 # Exportar dataframes como arquivo xlsx
 #               df.to_excel("Teste Salvamento.xlsx", index= False) # Gerar arquivo pelo pandas
-            wb.save(Nome_Salvar+".xlsx")  # Gerar arquivo pelo openpyxl
+            wb.save("C:/Users/tired/Desktop/" + Nome_Salvar + ".xlsx")  # Gerar arquivo pelo openpyxl
             print("\nArquivo excel criado com sucesso!!!\n")
-            
+
 except OSError as e:
     print("Erro: ", e)

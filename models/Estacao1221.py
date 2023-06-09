@@ -1,29 +1,27 @@
 from sys import displayhook
 import pandas
 import conexao
-from openpyxl import Workbook, load_workbook
+from openpyxl import load_workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 from openpyxl.styles import Border, Side, Alignment, Font
 from openpyxl.drawing.image import Image
-from openpyxl.utils import get_column_letter
 
 # Busca de dados no banco
 try:
     class Estacao1221():
         def _init_(self, data1, data2, Nome_Arquivo, Nome_Salvar):
-            data2 = data2 + " 21:00:00"
-            consulta_sql = "SELECT DATE(horalocal), AVG(SPressao), AVG(Vazao_calculada) FROM medicoes WHERE Codigo_Sec = 1221 AND horalocal between %s and %s GROUP BY DATE(HoraLocal);"
+            consulta_sql = "SELECT DATE(HoraLocal), AVG(SPressao), AVG(Vazao_calculada) FROM medicoes WHERE Codigo_Sec = 1221 AND HoraLocal between %s and %s GROUP BY DATE(HoraLocal);"
             cursor = conexao.con.cursor()
             cursor.execute(consulta_sql, (data1, data2))
             Dados = cursor.fetchall()
 
 # Gerar dataframe com os dados
-            df = pandas.DataFrame(
-                Dados, columns=["DATA", "PRESSAO (24h)", "VAZAO (24h)"])
+            df = pandas.DataFrame(Dados, columns=["DATA", "PRESSAO (24h)", "VAZAO (24h)"])
 
 # Formatacao da data
             df["DATA"] = pandas.to_datetime(df.DATA)
-            df["DATA"] = df["DATA"].dt.strftime("%d/%m/%Y")# Ano com Y maiúsculo, saída com 4 dígitos / Ano com y minúsculo, saída com 2 dígitos
+            # Ano com Y maiúsculo, saída com 4 dígitos / Ano com y minúsculo, saída com 2 dígitos
+            df["DATA"] = df["DATA"].dt.strftime("%d/%m/%Y")
 
 # Carregar arquivo excel existente
             wb = load_workbook("C:/Users/tired/Desktop/" + Nome_Arquivo + ".xlsx")
@@ -75,11 +73,12 @@ try:
 #                                                 horizontal=Side(border_style=None,
 #                                                 color='FF000000'))
 
-                    ws.cell(i, j).alignment = Alignment(horizontal='center', vertical='center')
+                    ws.cell(i, j).alignment = Alignment(
+                        horizontal='center', vertical='center')
                     ws.cell(i, j).number_format = '0.00'
 
 # Apresentacao dos dataframes no terminal
-#               displayhook(df)
+#            displayhook(df)
 
 # Exportar dataframes como arquivo xlsx
 #               df.to_excel("Teste Salvamento.xlsx", index= False) # Gerar arquivo pelo pandas

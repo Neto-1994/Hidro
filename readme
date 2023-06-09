@@ -11,3 +11,6 @@ Driver de conexão mysql;
 
 Biblioteca python para ler e escrever arquivos excel;
 *** pip install openpyxl
+
+Biblioteca para adicionar recursos de processamento de imagem ao interpretador python;
+*** pip install Pillow

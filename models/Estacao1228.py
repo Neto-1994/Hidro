@@ -16,12 +16,16 @@ try:
             Dados = cursor.fetchall()
 
 # Gerar dataframe com os dados
-            df = pandas.DataFrame(Dados, columns=["DATA", "PRESSAO (24h)", "VAZAO (24h)"])
+            df = pandas.DataFrame(Dados, columns=["Data", "Nível Médio Diário", "Vazão Média Diária(m³/s)"])
+
+# Cálculo da vazão horária e inserção do valor no dataframe
+            horario = df["Vazão Média Diária(m³/s)"] / 24
+            df.insert(3, "Vazão Média Diária(l/h)", horario)
 
 # Formatacao da data
-            df["DATA"] = pandas.to_datetime(df.DATA)
+            df["Data"] = pandas.to_datetime(df.Data)
             # Ano com Y maiúsculo, saída com 4 dígitos / Ano com y minúsculo, saída com 2 dígitos
-            df["DATA"] = df["DATA"].dt.strftime("%d/%m/%Y")
+            df["Data"] = df["Data"].dt.strftime("%d/%m/%Y")
 
 # Carregar arquivo excel existente
             wb = load_workbook("C:/Users/tired/Desktop/" + Nome_Arquivo + ".xlsx")
@@ -32,7 +36,7 @@ try:
 
 # Leitura de parâmetros do arquivo
             row_before = ws.max_row + 1
-            column = ws.max_column - 1
+            column = ws.max_column
 
 # Inserir dados na planilha
             for r in dr:

@@ -27,6 +27,8 @@ try:
             Nome_Arquivo = self.entry4.get()
             Nome_Salvar = self.entry5.get()
             resultado = str("Arquivo excel criado com sucesso!!!")
+            self.v.set("")
+            Window.update()
 
             if self.rb_value.get() == 1:  # Estação 1221
                 objeto = Estacao1221()

@@ -16,11 +16,11 @@ try:
             Dados = cursor.fetchall()
 
 # Gerar dataframe com os dados
-            df = pandas.DataFrame(Dados, columns=["Data", "Nível Médio Diário", "Vazão Média Diária(m³/s)"])
+            df = pandas.DataFrame(Dados, columns=["Data", "Nível Médio Diário (m)", "Vazão Média Diária(m³/s)"])
 
 # Cálculo da vazão horária e inserção do valor no dataframe
-            horario = df["Vazão Média Diária(m³/s)"] / 24
-            df.insert(3, "Vazão Média Diária(l/h)", horario)
+            horario = df["Vazão Média Diária(m³/s)"] * 1000
+            df.insert(3, "Vazão Média Diária(l/s)", horario)
 
 # Formatacao da data
             df["Data"] = pandas.to_datetime(df.Data)
@@ -79,7 +79,8 @@ try:
 
                     ws.cell(i, j).alignment = Alignment(
                         horizontal='center', vertical='center')
-                    ws.cell(i, j).number_format = '0.00'
+                    for j in range(1, column -1):
+                        ws.cell(i, j).number_format = '0.00'
 
 # Apresentacao dos dataframes no terminal
 #            displayhook(df)

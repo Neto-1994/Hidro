@@ -26,77 +26,84 @@ try:
             data2 = self.entry3.get()
             Nome_Arquivo = self.entry4.get()
             Nome_Salvar = self.entry5.get()
+            estacao = self.rb_value.get()
             resultado = str("Arquivo excel criado com sucesso!!!")
             self.v.set("")
             Window.update()
 
-            if self.rb_value.get() == 1:  # Estação 1221
+            # Validação de dados
+            if ((data1 == "") or (data2 == "") or (Nome_Arquivo == "") or (Nome_Salvar == "") or (estacao == 0)):
+                validacao = str("Preencha os campos corretamente!!!")
+                self.v.set(validacao)
+                Window.update()
+            
+            elif estacao == 1:  # Estação 1221
                 objeto = Estacao1221()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
-            elif self.rb_value.get() == 2:  # Estação 1222
+            elif estacao == 2:  # Estação 1222
                 objeto = Estacao1222()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
-            elif self.rb_value.get() == 3:  # Estação 1226
+            elif estacao == 3:  # Estação 1226
                 objeto = Estacao1226()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
-            elif self.rb_value.get() == 4:  # Estação 1227
+            elif estacao == 4:  # Estação 1227
                 objeto = Estacao1227()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
-            elif self.rb_value.get() == 5:  # Estação 1228
+            elif estacao == 5:  # Estação 1228
                 objeto = Estacao1228()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
-            elif self.rb_value.get() == 6:  # Estação 1229
+            elif estacao == 6:  # Estação 1229
                 objeto = Estacao1229()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
-            elif self.rb_value.get() == 7:  # Estação 1230
+            elif estacao == 7:  # Estação 1230
                 objeto = Estacao1230()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
-            elif self.rb_value.get() == 8:  # Estação 1243
+            elif estacao == 8:  # Estação 1243
                 objeto = Estacao1243()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
-            elif self.rb_value.get() == 9:  # Estação 1244
+            elif estacao == 9:  # Estação 1244
                 objeto = Estacao1244()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
-            elif self.rb_value.get() == 10:  # Estação 1245
+            elif estacao == 10:  # Estação 1245
                 objeto = Estacao1245()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
-            elif self.rb_value.get() == 11:  # Estação 1246
+            elif estacao == 11:  # Estação 1246
                 objeto = Estacao1246()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
 
-            elif self.rb_value.get() == 12:  # Estação 1247
+            elif estacao == 12:  # Estação 1247
                 objeto = Estacao1247()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
@@ -206,10 +213,10 @@ try:
             label6.pack()
 
 # Parâmetros de execução
-            button1 = Button(frame10, text="Buscar", relief="raised", command=lambda: self.executa())
+            button1 = Button(frame10, text="Buscar", borderwidth=5, relief="raised", command=lambda: self.executa())
             button1.pack(side="right")
 
-            button2 = Button(frame10, text="Limpar", relief="raised", command=lambda: self.limpar())
+            button2 = Button(frame10, text="Limpar", borderwidth=5, relief="raised", command=lambda: self.limpar())
             button2.pack(side="left")
 
 # Parâmetros da tela

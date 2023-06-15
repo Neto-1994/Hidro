@@ -18,7 +18,7 @@ try:
 # Gerar dataframe com os dados
             df = pandas.DataFrame(Dados, columns=["Data", "Nível Médio Diário (m)", "Vazão Média Diária(m³/s)"])
 
-# Cálculo da vazão horária e inserção do valor no dataframe
+# Cálculo da Vazão Média por segundo e inserção do valor no dataframe
             horario = df["Vazão Média Diária(m³/s)"] * 1000
             df.insert(3, "Vazão Média Diária(l/s)", horario)
 

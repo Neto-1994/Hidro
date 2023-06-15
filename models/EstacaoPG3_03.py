@@ -8,9 +8,9 @@ from openpyxl.drawing.image import Image
 
 # Busca de dados no banco
 try:
-    class Estacao1221():
+    class EstacaoPG3_03():
         def _init_(self, data1, data2, Nome_Arquivo, Nome_Salvar):
-            consulta_sql = "SELECT DATE(HoraLocal), AVG(SPressao), AVG(Vazao_calculada) FROM medicoes WHERE Codigo_Sec = 1221 AND HoraLocal between %s and %s GROUP BY DATE(HoraLocal);"
+            consulta_sql = "SELECT DATE(HoraLocal), AVG(SPressao), AVG(Vazao_calculada) FROM medicoes WHERE Codigo_Sec = 1223 AND HoraLocal between %s and %s GROUP BY DATE(HoraLocal);"
             cursor = conexao.con.cursor()
             cursor.execute(consulta_sql, (data1, data2))
             Dados = cursor.fetchall()
@@ -19,8 +19,8 @@ try:
             df = pandas.DataFrame(Dados, columns=["Data", "Nível Médio Diário (m)", "Vazão Média Diária(m³/s)"])
 
 # Cálculo da Vazão Média por segundo e inserção do valor no dataframe
-            horario = df["Vazão Média Diária(m³/s)"] * 1000
-            df.insert(3, "Vazão Média Diária(l/s)", horario)
+            vms = df["Vazão Média Diária(m³/s)"] * 1000
+            df.insert(3, "Vazão Média Diária(l/s)", vms)
 
 # Formatacao da data
             df["Data"] = pandas.to_datetime(df.Data)
@@ -29,7 +29,7 @@ try:
 
 # Carregar arquivo excel existente
             wb = load_workbook("C:/Users/tired/Desktop/" + Nome_Arquivo + ".xlsx")
-            ws = wb["FLU 17"]
+            ws = wb["PG3-03"]
 
 # Transformar dataframe em datarows (linhas de dados)
             dr = dataframe_to_rows(df, index=False, header=False,)

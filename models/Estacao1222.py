@@ -80,7 +80,7 @@ try:
                     ws.cell(i, j).alignment = Alignment(
                         horizontal='center', vertical='center')
                     for j in range(1, column -1):
-                        ws.cell(i, j).number_format = '0.00'
+                        ws.cell(i, j).number_format = '0.000'
 
 # Apresentacao dos dataframes no terminal
 #            displayhook(df)

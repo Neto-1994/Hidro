@@ -16,7 +16,6 @@ from models.Estacao1244 import Estacao1244
 from models.Estacao1245 import Estacao1245
 from models.Estacao1246 import Estacao1246
 from models.Estacao1247 import Estacao1247
-from models.EstacaoPG3 import EstacaoPG3
 
 try:
     class Principal():
@@ -106,12 +105,6 @@ try:
 
             elif estacao == 12:  # Estação 1247
                 objeto = Estacao1247()
-                instancia = objeto._init_(
-                    data1, data2, Nome_Arquivo, Nome_Salvar)
-                self.v.set(resultado)
-
-            elif estacao == 13:  # Estação PG3-03
-                objeto = EstacaoPG3()
                 instancia = objeto._init_(
                     data1, data2, Nome_Arquivo, Nome_Salvar)
                 self.v.set(resultado)
@@ -212,8 +205,6 @@ try:
                 frame8, text="Estação FLU 15", value=11, variable=self.rb_value).pack()
             self.rb12 = Radiobutton(
                 frame8, text="Estação FLU 14", value=12, variable=self.rb_value).pack()
-            self.rb13 = Radiobutton(
-                frame6, text="Estação PG3", value=13, variable=self.rb_value).pack()
 
             label6 = Label(frame9, text="Resultado: ")
             label6.pack()

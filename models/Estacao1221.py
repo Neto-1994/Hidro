@@ -30,14 +30,14 @@ try:
 # Carregar arquivo excel existente
             wb = load_workbook("C:/Users/tired/Desktop/" + Nome_Arquivo + ".xlsx")
             ws = wb["FLU 17"]
-
+            
 # Transformar dataframe em datarows (linhas de dados)
             dr = dataframe_to_rows(df, index=False, header=False,)
 
 # Leitura de parâmetros do arquivo
             row_before = ws.max_row + 1
             column = ws.max_column
-
+            
 # Inserir dados na planilha
             for r in dr:
                 ws.append(r)
@@ -48,10 +48,10 @@ try:
 
 #            ws.add_image(img1, "A1")
 #            ws.add_image(img2, "D1")
-
+            
 # Leitura de parâmetros do arquivo
             row_after = ws.max_row + 1
-
+            
 # Formatar dados da planilha
             for i in range(row_before, row_after):
                 for j in range(1, column):
@@ -76,14 +76,14 @@ try:
 #                                                 color='FF000000'),
 #                                                 horizontal=Side(border_style=None,
 #                                                 color='FF000000'))
-
+                    
                     ws.cell(i, j).alignment = Alignment(
                         horizontal='center', vertical='center')
                     ws.cell(i, j).number_format = '0.000'
-
+            
 # Apresentacao dos dataframes no terminal
 #            displayhook(df)
-
+            
 # Exportar dataframes como arquivo xlsx
 #               df.to_excel("Teste Salvamento.xlsx", index= False) # Gerar arquivo pelo pandas
             wb.save("C:/Users/tired/Desktop/" + Nome_Salvar + ".xlsx")  # Gerar arquivo pelo openpyxl

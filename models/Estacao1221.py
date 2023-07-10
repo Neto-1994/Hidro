@@ -28,7 +28,7 @@ try:
             df["Data"] = df["Data"].dt.strftime("%d/%m/%Y")
 
 # Carregar arquivo excel existente
-            wb = load_workbook("C:/Users/tired/Desktop/" + Nome_Arquivo + ".xlsx")
+            wb = load_workbook(Nome_Arquivo + ".xlsx")
             ws = wb["FLU 17"]
             
 # Transformar dataframe em datarows (linhas de dados)
@@ -86,7 +86,7 @@ try:
             
 # Exportar dataframes como arquivo xlsx
 #               df.to_excel("Teste Salvamento.xlsx", index= False) # Gerar arquivo pelo pandas
-            wb.save("C:/Users/tired/Desktop/" + Nome_Salvar + ".xlsx")  # Gerar arquivo pelo openpyxl
+            wb.save(Nome_Salvar + ".xlsx")  # Gerar arquivo pelo openpyxl
             print("\nArquivo excel criado com sucesso!!!\n")
 
 except OSError as e:

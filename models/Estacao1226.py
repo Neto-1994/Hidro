@@ -25,6 +25,7 @@ try:
 # Formatacao da data
             df["Data"] = pandas.to_datetime(df.Data)
             # Ano com Y maiúsculo, saída com 4 dígitos / Ano com y minúsculo, saída com 2 dígitos
+            # Opção de formatação da data "%d/%m/%Y %H:%M:%S" 
             df["Data"] = df["Data"].dt.strftime("%d/%m/%Y")
 
 # Carregar arquivo excel existente

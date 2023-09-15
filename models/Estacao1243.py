@@ -10,7 +10,7 @@ from openpyxl.drawing.image import Image
 try:
     class Estacao1243():
         def _init_(self, data1, data2, Nome_Arquivo, Nome_Salvar):
-            consulta_sql = "SELECT DATE(HoraLocal), AVG(SPressao), AVG(Vazao_calculada) FROM medicoes WHERE Codigo_Sec = 1243 AND HoraLocal between %s and %s GROUP BY DATE(HoraLocal);"
+            consulta_sql = "SELECT DATE(HoraLocal), AVG(SPressao), AVG(Vazao_calculada) FROM medicoes WHERE Codigo_Sec = 1243 AND HoraLocal between %s and '%s 23:59:59' GROUP BY DATE(HoraLocal);"
             cursor = conexao.con.cursor()
             cursor.execute(consulta_sql, (data1, data2))
             Dados = cursor.fetchall()

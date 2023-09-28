@@ -1,6 +1,6 @@
 from sys import displayhook
 import pandas
-import conexao
+import Conexao
 from openpyxl import load_workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 from openpyxl.styles import Border, Side, Alignment, Font
@@ -11,7 +11,7 @@ try:
     class Estacao1222():
         def _init_(self, data1, data2, Nome_Arquivo, Nome_Salvar):
             consulta_sql = "SELECT DATE(HoraLocal), AVG(SPressao), AVG(Vazao_calculada) FROM medicoes WHERE Codigo_Sec = 1222 AND HoraLocal between %s and '%s 23:59:59' GROUP BY DATE(HoraLocal);"
-            cursor = conexao.con.cursor()
+            cursor = Conexao.obter_conexao().cursor()
             cursor.execute(consulta_sql, (data1, data2))
             Dados = cursor.fetchall()
 
